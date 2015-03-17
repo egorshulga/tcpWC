@@ -8,7 +8,7 @@ namespace tcpWC
 {
 	public static class Client
 	{
-		private static readonly TcpClient tcpClient = new TcpClient();
+		private static TcpClient tcpClient;
 		private static IPAddress serverIP;
 		private const int serverPort = 41414;
 
@@ -18,6 +18,7 @@ namespace tcpWC
 		{
 			try
 			{
+				tcpClient = new TcpClient();
 
 				ParseServerIP(serverIPtext);
 
@@ -33,6 +34,7 @@ namespace tcpWC
 			}
 			catch (Exception e)
 			{
+				tcpClient.Close();
 				MessageBox.Show(e.Message);
 				return wordsCountOnError;
 			}
